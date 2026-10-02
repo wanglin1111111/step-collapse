@@ -1,0 +1,55 @@
+{
+  "diagnosis": {
+    "steps": [
+      {
+        "id": "STEP-1",
+        "name": "四步生成第1步（粗结构）",
+        "defect": "全局粗结构欠债",
+        "foldable_with": ["STEP-2"]
+      },
+      {
+        "id": "STEP-2",
+        "name": "四步生成第2步（中结构）",
+        "defect": "全局粗结构欠债",
+        "foldable_with": ["STEP-1"],
+        "merged_into": ["STEP-1"]
+      },
+      {
+        "id": "STEP-3",
+        "name": "提示词匹配精修",
+        "defect": "图文联合分布对齐",
+        "foldable_with": []
+      }
+    ]
+  },
+  "unify": {
+    "framework": "分布模型 + 差异度量（FD-Loss=单高斯+W2，Drifting=核+KL）",
+    "pairs": [
+      {"name": "单高斯+W2", "role": "coarse"},
+      {"name": "核密度+KL", "role": "fine"}
+    ]
+  },
+  "granularity": {
+    "param": "K",
+    "levels": [1, 4, 16],
+    "tunable": true,
+    "multi_level_benchmark": true
+  },
+  "constraints": {
+    "quota_lock": true,
+    "paired_update": true,
+    "hard_not_regex": true
+  },
+  "rollout": {
+    "benchmark_table": true,
+    "post_train_first": true,
+    "retrain_reason": "",
+    "target_scenarios": ["low_latency", "edge_deploy", "bulk_render"]
+  },
+  "evaluation": {
+    "aggregate_metrics": ["FID", "GenEval", "PickScore"],
+    "category_quota_coverage": true,
+    "quota_tolerance": 0.02,
+    "fixed_normalizer": true
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "diagnosis": {
+    "steps": [
+      {
+        "id": "STEP-1",
+        "name": "多步生成第1步",
+        "defect": "",
+        "foldable_with": ["STEP-2"]
+      },
+      {
+        "id": "STEP-2",
+        "name": "多步生成第2步",
+        "defect": "粗结构",
+        "foldable_with": ["STEP-1"]
+      }
+    ]
+  },
+  "unify": {
+    "framework": "",
+    "pairs": [
+      {"name": "单高斯", "role": "coarse"}
+    ]
+  },
+  "granularity": {
+    "param": "K",
+    "levels": [4],
+    "tunable": false,
+    "multi_level_benchmark": false
+  },
+  "constraints": {
+    "quota_lock": false,
+    "paired_update": true,
+    "hard_not_regex": false
+  },
+  "rollout": {
+    "benchmark_table": true,
+    "post_train_first": false,
+    "retrain_reason": "",
+    "target_scenarios": ["low_latency"]
+  },
+  "evaluation": {
+    "aggregate_metrics": ["FID"],
+    "category_quota_coverage": false,
+    "quota_tolerance": 0.5,
+    "fixed_normalizer": false
+  }
+}
